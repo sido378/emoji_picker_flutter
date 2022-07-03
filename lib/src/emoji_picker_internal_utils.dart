@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'emoji_lists.dart' as emoji_list;
+import 'emoji_map.dart' as emoji_map;
 import 'recent_emoji.dart';
 
 /// Helper class that provides internal usage
@@ -21,7 +22,8 @@ class EmojiPickerInternalUtils {
     final prefs = await SharedPreferences.getInstance();
     var emojiVersion = prefs.getInt(_emojiVersion) ?? 0;
     // != to support downgrading of emoji_picker versions
-    return emoji_list.version != emojiVersion;
+    return true;
+    // return emoji_list.version != emojiVersion;
   }
 
   /// Updates local emoji version with current version
@@ -54,8 +56,9 @@ class EmojiPickerInternalUtils {
 
     if (newMap == null) {
       // Check if emoji is available on this platform
-      newMap = await _getPlatformAvailableEmoji(map);
+      // newMap = await _getPlatformAvailableEmoji(map);
       // Save available Emojis to local storage for faster loading next time
+      newMap = map;
       if (newMap != null) {
         await _cacheFilteredEmojis(title, newMap);
       }
@@ -76,7 +79,7 @@ class EmojiPickerInternalUtils {
       Category.SYMBOLS,
       Category.FLAGS
     ], [
-      emoji_list.smileys,
+      emoji_map.smileys,
       emoji_list.animals,
       emoji_list.foods,
       emoji_list.activities,
