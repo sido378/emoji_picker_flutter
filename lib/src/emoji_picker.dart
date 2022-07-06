@@ -232,22 +232,11 @@ class EmojiPickerState extends State<EmojiPicker> {
               // Emoji with skin tone are only in SMILEY & ACTIVITIES category
               if (category == Category.SMILEYS ||
                   category == Category.ACTIVITIES) {
-                return _updateSkinToneSupport(_emoji);
+                return _emojiPickerInternalUtils.updateSkinToneSupport(_emoji);
               } else
                 return _emoji;
             }).toList()),
       );
     });
-
-    // Update emoji list version once all categories were cached
-    _emojiPickerInternalUtils.updateEmojiVersion();
-  }
-
-  // Set [hasSkinTone] to true for emoji that support skin tones
-  Emoji _updateSkinToneSupport(Emoji emoji) {
-    if (_emojiPickerInternalUtils.hasSkinTone(emoji)) {
-      return emoji.copyWith(hasSkinTone: true);
-    }
-    return emoji;
   }
 }
