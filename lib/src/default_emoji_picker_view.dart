@@ -124,6 +124,7 @@ class _DefaultEmojiPickerViewState extends State<DefaultEmojiPickerView>
                   _buildBackspaceButton(),
                 ],
               ),
+              const SizedBox(height: 6),
               Flexible(
                 child: PageView.builder(
                   itemCount: widget.state.categoryEmoji.length,
