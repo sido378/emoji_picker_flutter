@@ -39,6 +39,9 @@ enum Category {
 
   /// Flag emojis
   FLAGS,
+
+  /// Search emojis
+  SEARCH,
 }
 
 /// Extension on Category enum to get its name
@@ -64,6 +67,8 @@ extension CategoryExtension on Category {
         return 'symbols';
       case Category.FLAGS:
         return 'flags';
+      case Category.SEARCH:
+        return 'search';
     }
   }
 }
@@ -286,6 +291,9 @@ class EmojiPickerState extends State<EmojiPicker> {
     _categoryEmoji.addAll(widget.config.checkPlatformCompatibility
         ? await _emojiPickerInternalUtils.filterUnsupported(data)
         : data);
+    if (widget.config.showSearchTab) {
+      _categoryEmoji.add(const CategoryEmoji(Category.SEARCH, []));
+    }
     _state = EmojiViewState(
       _categoryEmoji,
       _getOnEmojiListener(),

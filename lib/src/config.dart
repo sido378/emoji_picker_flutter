@@ -42,6 +42,7 @@ class Config {
     this.checkPlatformCompatibility = true,
     this.emojiSet,
     this.emojiTextStyle,
+    this.showSearchTab = false,
   });
 
   /// Number of emojis per row
@@ -126,6 +127,9 @@ class Config {
   /// being filtered out.
   final TextStyle? emojiTextStyle;
 
+  /// Show search category
+  final bool showSearchTab;
+
   /// Get Emoji size based on properties and screen width
   double getEmojiSize(double width) {
     final maxSize = width / columns;
@@ -153,6 +157,8 @@ class Config {
         return categoryIcons.symbolIcon;
       case Category.FLAGS:
         return categoryIcons.flagIcon;
+      case Category.SEARCH:
+        return categoryIcons.searchIcon;
       default:
         throw Exception('Unsupported Category');
     }
